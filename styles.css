@@ -2,15 +2,7 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 40px 60px;
-    gap: 40px;
-    height: 100vh;
-    overflow: hidden;
-    background: 
+    background:
         radial-gradient(circle at 80% 10%, #f7ecd2cc 0, #c1445199 40%, transparent 80%),
         radial-gradient(circle at 10% 80%, #c1445988 0, transparent 80%),
         linear-gradient(120deg, #f7ecd2 0%, #7a264d 50%, #551b2f 100%);
@@ -27,71 +19,99 @@ body::after {
     z-index: 0;
 }
 
-/* Place theme toggle at top right, always visible, never overlapping main content */
-.theme-toggle-btn {
+/* Responsive main flex wrapper */
+.main-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 60px;
+}
+
+@media (max-width: 850px) {
+    .main-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px 8px;
+        gap: 24px;
+    }
+    .pomodoro-widget {
+        position: static !important;
+        top: unset;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.theme-toggle-btn, .enable-btn {
     position: fixed;
-    top: 24px;
-    right: 40px;
+    top: 16px;
     z-index: 100;
     background: linear-gradient(90deg, #7a264d 0%, #c14451 100%);
     color: #f7ecd2;
     border: none;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 11px 26px;
+    padding: 10px 24px;
     box-shadow: 0 3px 14px #c1445195;
     cursor: pointer;
     transition: background 0.3s, box-shadow 0.3s;
 }
-.theme-toggle-btn:hover {
+.theme-toggle-btn { right: 24px; }
+.enable-btn { right: 170px; }
+
+.theme-toggle-btn:hover, .enable-btn:hover {
     background: linear-gradient(90deg, #c14451 0%, #7a264d 100%);
     box-shadow: 0 0 18px 4px #7a264dcc;
 }
 
-/* To-Do container with scrolling list */
-.container {
-    width: 400px;
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    background: rgba(247, 236, 210, 0.12);
-    border-radius: 20px;
-    box-shadow:
-        0 15px 40px rgba(113, 31, 44, 0.28),
-        0 1.5px 19px #7a264d88;
-    backdrop-filter: blur(14px);
-    border: 1.5px solid #7a264dcc;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 35px 30px 20px 30px;
-    overflow: hidden;
+@media (max-width: 600px) {
+    .theme-toggle-btn {
+        right: 12px;
+        top: 8px;
+        padding: 8px 14px;
+        font-size: 0.97rem;
+    }
+    .enable-btn {
+        right: 100px;
+        top: 8px;
+        padding: 8px 14px;
+        font-size: 0.97rem;
+    }
 }
 
-#taskList {
-    margin-top: 20px;
-    overflow-y: auto;
-    max-height: 50vh;
-    padding-right: 10px;
+.container, .pomodoro-widget {
+    max-width: 410px;
+    width: 100%;
+    border-radius: 20px;
+    background: rgba(247, 236, 210, 0.12);
+    box-shadow:
+        0 15px 40px rgba(113, 31, 44, 0.23),
+        0 1.5px 19px #7a264d55;
+    backdrop-filter: blur(12px);
+    border: 1.5px solid #7a264dcc;
+    z-index: 2;
+    text-align: center;
+    margin: 0 auto;
+    padding: 34px 20px 18px 20px;
 }
-.label {
-    display: block;
-    margin-top: 8px;
-    font-size: 14px;
-    color: #ffffff;
-    text-align: left;
-}
-h1 {
+
+.container { min-height: 420px; }
+
+h1, .pomodoro-widget h2 {
     color: #7a264d;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     margin-bottom: 20px;
-    text-shadow: 0 0 7px #7a264d99;
+    text-shadow: 0 0 7px #7a264d77;
 }
+
 input[type="text"],
 input[type="time"],
 select {
-    width: 30%;
+    width: 95%;
+    max-width: 220px;
     padding: 10px;
     margin-bottom: 6px;
     border: 1.5px solid #c14451;
@@ -103,51 +123,63 @@ select {
     transition: box-shadow 0.3s, border-color 0.3s;
     color: #551b2f;
 }
+
 input[type="text"]:focus,
 input[type="time"]:focus,
 select:focus {
     border-color: #551b2f;
     box-shadow: 0 0 7px 1px #7a264dcc;
 }
-select {
-    width: 22%;
+select { max-width: 150px; }
+
+.label {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: left;
 }
+
 .add-btn {
-    padding: 11px 18px;
-    margin-left: 5px;
+    width: 110px;
+    padding: 10px 0;
+    font-weight: 700;
+    box-shadow: 0 0 12px #c14451cc;
+    margin: 10px auto 0 auto;
+    display: block;
     background: linear-gradient(90deg, #7a264d 0%, #c14451 100%);
-    color: #f7ecd2;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-    box-shadow: 0 0 12px #c14451cc;
+    color: #f7ecd2;
+    font-size: 1rem;
     transition: background 0.3s, box-shadow 0.3s;
 }
 .add-btn:hover {
     background: linear-gradient(90deg, #c14451 0%, #7a264d 100%);
-    box-shadow: 0 0 18px 4px #7a264dcc;
 }
+
 ul {
-    margin: 0;
+    margin: 15px 0 0 0;
     padding: 0;
+    max-height: 250px;
+    overflow-y: auto;
 }
+
 li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: rgba(193, 65, 81, 0.18);
-    margin-bottom: 14px;
-    padding: 12px 20px;
+    margin-bottom: 11px;
+    padding: 11px 16px 11px 12px;
     border-radius: 10px;
     font-size: 16px;
     color: #f7ecd2;
-    box-shadow: 0 2px 10px #a52a2a33 inset;
-    transition: background 0.3s, color 0.3s;
+    box-shadow: 0 2px 10px #a52a2a22 inset;
     cursor: pointer;
     flex-wrap: wrap;
 }
+
 li.completed {
     text-decoration: line-through;
     color: #bba999;
@@ -155,11 +187,12 @@ li.completed {
     box-shadow: none;
     cursor: default;
 }
+
 .delete-btn {
     background: #551b2fcc;
     border: none;
     color: #f7ecd2;
-    padding: 7px 14px;
+    padding: 7px 13px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
@@ -171,87 +204,90 @@ li.completed {
     background: #7a264dff;
     box-shadow: 0 0 14px #c14451cc;
 }
+
 .time {
     color: #c14451;
-    font-size: 0.95em;
-    margin-left: 10px;
+    font-size: 0.93em;
+    margin-left: 9px;
+    margin-right: 6px;
     font-weight: 700;
     text-shadow: 0 0 2px #551b2f;
 }
 .countdown {
     color: #814b58;
-    font-size: 0.85em;
+    font-size: 0.82em;
     font-weight: 600;
-    margin-left: 12px;
+    margin-left: 8px;
 }
+
 .priority.low {
     color: #a1a06c;
-    margin-left: 14px;
+    margin-left: 12px;
     font-weight: bold;
     text-shadow: 0 0 2px #66663b;
 }
 .priority.medium {
     color: #d48a71;
-    margin-left: 14px;
+    margin-left: 12px;
     font-weight: bold;
     text-shadow: 0 0 2px #8c5644;
 }
 .priority.high {
     color: #c14451;
-    margin-left: 14px;
+    margin-left: 12px;
     font-weight: bold;
     text-shadow: 0 0 3px #551b2f;
 }
 
-/* Pomodoro on the right */
 .pomodoro-widget {
-    width: 220px;
-    height: 200px;
-    padding: 25px 20px;
+    width: 230px;
+    min-width: 170px;
+    min-height: 190px;
+    max-width: 100vw;
+    padding: 22px 12px;
+    margin: 0 auto;
+    position: sticky;
+    top: 40px;
     background: rgba(247, 236, 210, 0.12);
     border-radius: 20px;
     box-shadow:
-        0 15px 40px rgba(113, 31, 44, 0.28),
-        0 1.5px 19px #7a264d88;
-    backdrop-filter: blur(14px);
+        0 15px 40px rgba(113, 31, 44, 0.23),
+        0 1.5px 19px #7a264d55;
+    backdrop-filter: blur(12px);
     border: 1.5px solid #7a264dcc;
-    color: #7a264d;
     text-align: center;
+    color: #7a264d;
     user-select: none;
-    flex-shrink: 0;
-    position: sticky;
-    top: 40px;
 }
-.pomodoro-widget h2 {
-    margin-bottom: 20px;
-}
+
 #pomodoro-timer {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     letter-spacing: 3px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: #a52a2a;
     text-shadow: 0 0 6px #7a264d99;
 }
+
 .pomodoro-widget button {
     background: linear-gradient(90deg, #7a264d 0%, #c14451 100%);
     border: none;
     color: #f7ecd2;
     font-weight: 700;
-    font-size: 16px;
-    padding: 10px 18px;
-    margin: 0 8px;
+    font-size: 15px;
+    padding: 8px 15px;
+    margin: 0 5px;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 0 12px #c14451cc;
+    box-shadow: 0 0 9px #c14451bb;
     transition: background 0.3s, box-shadow 0.3s;
 }
 .pomodoro-widget button:hover {
     background: linear-gradient(90deg, #c14451 0%, #7a264d 100%);
-    box-shadow: 0 0 18px 4px #7a264dcc;
+    box-shadow: 0 0 12px 3px #7a264dcc;
 }
 
-/* DARK MODE OVERRIDES */
+/* Dark mode overrides */
 body.dark-mode {
     background:
         radial-gradient(circle at 80% 10%, #201622cc 0, #370c1e99 40%, transparent 80%),
@@ -262,7 +298,7 @@ body.dark-mode .container,
 body.dark-mode .pomodoro-widget {
     background: rgba(34,18,40,0.27);
     border: 1.5px solid #bb3469cc;
-    box-shadow: 0 15px 40px rgba(64, 16, 44, 0.42), 0 1.5px 19px #bb346988;
+    box-shadow: 0 15px 40px rgba(64, 16, 44, 0.21), 0 1.5px 19px #bb346977;
 }
 body.dark-mode h1,
 body.dark-mode .pomodoro-widget h2 {
@@ -282,14 +318,16 @@ body.dark-mode select:focus {
 }
 body.dark-mode button,
 body.dark-mode .pomodoro-widget button,
-body.dark-mode .theme-toggle-btn {
+body.dark-mode .theme-toggle-btn,
+body.dark-mode .enable-btn {
     background: linear-gradient(90deg, #6e1152 0%, #bb3469 100%);
     color: #f7ecd2;
     box-shadow: 0 0 13px #bb346999;
 }
 body.dark-mode button:hover,
 body.dark-mode .pomodoro-widget button:hover,
-body.dark-mode .theme-toggle-btn:hover {
+body.dark-mode .theme-toggle-btn:hover,
+body.dark-mode .enable-btn:hover {
     background: linear-gradient(90deg, #bb3469 0%, #6e1152 100%);
     box-shadow: 0 0 17px 4px #bb3469cc;
 }

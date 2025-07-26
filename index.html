@@ -2,41 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>To-Do List with Pomodoro & Dark Mode</title>
+    <title>Mobile-Friendly To-Do List with Pomodoro & Dark Mode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Dark Mode / Theme Switcher at top right -->
+    <!-- Theme and Notifications Toggle at top right -->
     <button id="themeToggle" class="theme-toggle-btn">🌙 Dark Mode</button>
+    <button id="enableNotificationsBtn" class="enable-btn">🔔 Enable Notifications</button>
 
-    <div class="container">
-        <h1>To-Do List</h1>
+    <main class="main-wrapper">
+        <div class="container">
+            <h1>To-Do List</h1>
+            <input id="taskInput" type="text" placeholder="What will you do?" />
 
-        <input id="taskInput" type="text" placeholder="What will you do?" />
+            <label for="startTimeInput" class="label">Start Time:</label>
+            <input id="startTimeInput" type="time" />
 
-        <label for="startTimeInput" class="label">Start Time:</label>
-        <input id="startTimeInput" type="time" />
+            <label for="endTimeInput" class="label">End Time:</label>
+            <input id="endTimeInput" type="time" />
 
-        <label for="endTimeInput" class="label">End Time:</label>
-        <input id="endTimeInput" type="time" />
+            <select id="priorityInput">
+                <option value="Low">Low Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="High">High Priority</option>
+            </select>
 
-        <select id="priorityInput">
-            <option value="Low">Low Priority</option>
-            <option value="Medium">Medium Priority</option>
-            <option value="High">High Priority</option>
-        </select>
+            <button onclick="addTask()" class="add-btn">Add</button>
+            <ul id="taskList"></ul>
+        </div>
 
-        <button onclick="addTask()" class="add-btn">Add</button>
-        <ul id="taskList"></ul>
-    </div>
-
-    <div class="pomodoro-widget">
-        <h2>Pomodoro Timer</h2>
-        <div id="pomodoro-timer">25:00</div>
-        <button onclick="startPomodoro()">Start</button>
-        <button onclick="pausePomodoro()">Pause</button>
-        <button onclick="resetPomodoro()">Reset</button>
-    </div>
+        <div class="pomodoro-widget">
+            <h2>Pomodoro Timer</h2>
+            <div id="pomodoro-timer">25:00</div>
+            <button onclick="startPomodoro()">Start</button>
+            <button onclick="pausePomodoro()">Pause</button>
+            <button onclick="resetPomodoro()">Reset</button>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
